@@ -30,6 +30,9 @@
  *                                                                       *
  *************************************************************************/
 
+if (!defined('RCMAIL_CHARSET')) {
+    define('RCMAIL_CHARSET', 'UTF-8');
+}
 
 /**
  *  Takes HTML and converts it to formatted, plain text.
