@@ -255,6 +255,7 @@ class html2text
         '/<(b)[^>]*>(.*?)<\/b>/i',                 // <b>
         '/<(strong)[^>]*>(.*?)<\/strong>/i',       // <strong>
         '/<(th)[^>]*>(.*?)<\/th>/i',               // <th> and </th>
+        '/<(img)[^>]*alt=\"([^>"]+)\"[^>]*>/i',    // <img> with alt
     );
 
    /**
@@ -680,6 +681,8 @@ class html2text
             // Remove spaces in URL (#1487805)
             $url = str_replace(' ', '', $matches[3]);
             return $this->_build_link_list($url, $matches[4]);
+        case 'img':
+            return '[' . $matches[2] . ']';
         }
     }
 
