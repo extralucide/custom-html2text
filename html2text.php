@@ -465,7 +465,7 @@ class html2text
         // Variables used for building the link list
         $this->_link_list = array();
 
-        $text = trim(stripslashes($this->html));
+        $text = trim($this->html);
 
         // Convert HTML to TXT
         $this->_converter($text);
