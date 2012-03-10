@@ -728,7 +728,9 @@ class html2text
     {
         $str = html_entity_decode($str, ENT_COMPAT, RCMAIL_CHARSET);
 
-        if (function_exists('mb_strtoupper'))
+        if (class_exists('textlib'))
+            $str = textlib::strtoupper($str);
+        else if (function_exists('mb_strtoupper'))
             $str = mb_strtoupper($str);
         else
             $str = strtoupper($str);
