@@ -160,6 +160,7 @@ class html2text
         '/(<table[^>]*>|<\/table>)/i',           // <table> and </table>
         '/(<tr[^>]*>|<\/tr>)/i',                 // <tr> and </tr>
         '/<td[^>]*>(.*?)<\/td>/i',               // <td> and </td>
+        '/<th[^>]*>(.*?)<\/th>/ie',              // <th> and </th>
     );
 
     /**
@@ -174,19 +175,20 @@ class html2text
         ' ',                                    // Newlines and tabs
         '',                                     // <script>s -- which strip_tags supposedly has problems with
         '',                                     // <style>s -- which strip_tags supposedly has problems with
-        "\n\n",                                 // <P>
+        "\n\n  ",                               // <P> OAP 09 aug 10 \t is replaced by 2 spaces, excel don't like it
         "\n",                                   // <br>
         '_\\1_',                                // <i>
         '_\\1_',                                // <em>
         "\n\n",                                 // <ul> and </ul>
         "\n\n",                                 // <ol> and </ol>
-        "\t* \\1\n",                            // <li> and </li>
-        "\n\t* ",                               // <li>
+        "  * \\1\n",                            // <li> and </li> OAP 09 aug 10 \t is replaced by 2 spaces, excel don't like it
+        "\n  * ",                               // <li> OAP 09 aug 10 \t is replaced by 2 spaces, excel don't like it
         "\n-------------------------\n",        // <hr>
         "<div>\n",                              // <div>
         "\n\n",                                 // <table> and </table>
         "\n",                                   // <tr> and </tr>
-        "\t\t\\1\n",                            // <td> and </td>
+        "  \\1\n",                              // <td> and </td> OAP 09 aug 10 \t is replaced by 2 spaces, excel don't like it
+    	"strtoupper(\"    \\1\n\")",
     );
 
     /**
@@ -214,6 +216,12 @@ class html2text
         '/&(euro|#8364);/i',                     // Euro sign
         '/&(amp|#38);/i',                        // Ampersand: see _converter()
         '/[ ]{2,}/',                             // Runs of spaces, post-handling
+	'/&eacute;/i',                    	 // é
+	'/&egrave;/i',                    	 // è
+	'/&ocirc;/i',                    	 // ô
+	'/&icirc;/i',                    	 // î
+	'/&ecirc;/i',                    	 // ê
+	'/&(#133);/i',                           // ...
     );
 
     /**
@@ -236,9 +244,15 @@ class html2text
         '-',
         '*',
         '£',
-        'EUR',                                  // Euro sign. � ?
+        'EUR',                                  // Euro sign. � ?
         '|+|amp|+|',                            // Ampersand: see _converter()
         ' ',                                    // Runs of spaces, post-handling
+	'Ã©',                    		// é
+	'e',                    		// è
+	'o',                    		// ô
+	'i',                    		// î
+	'e',                    		// ê
+	'...',					// ...
     );
 
     /**
